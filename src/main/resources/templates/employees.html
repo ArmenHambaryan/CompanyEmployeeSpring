@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Show all Employees</title>
+</head>
+<body>
+
+<table>
+    <tr>
+        <th>name</th>
+        <th>surname</th>
+        <th>email</th>
+        <th>phoneNumber</th>
+        <th>salary</th>
+        <th>position</th>
+        <th>company</th>
+        <th>profilePic</th>
+    </tr>
+    <tr th:each="employe:${employees}">
+        <td th:text="${employe.id}"></td>
+        <td th:text="${employe.name}"></td>
+        <td th:text="${employe.surname}"></td>
+        <td th:text="${employe.email}"></td>
+        <td th:text="${employe.phoneNumber}"></td>
+        <td th:text="${employe.salary}"></td>
+        <td th:text="${employe.position}"></td>
+        <td>
+            <img th:if="${employe.profilePic != null }" th:src="@{/employees/getImage(fileName=${employe.profilePic})}">
+            <img th:if="${employe.profilePic == null }" src="(/profilePic/Screenshot_2.png)">
+        </td>
+
+        <td th:text="${employe.company eq null ? 'unassigned' : employe.company.name}"></td>
+        <td>
+            <a style="color:black" th:href="@{/employees/delete(id=${employe.id})}">Delete</a>
+        </td>
+    </tr>
+    <a href="/employees/add">
+        <button>add</button>
+    </a>
+</table>
+
+</body>
+</html>
